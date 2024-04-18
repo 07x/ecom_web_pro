@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    image: app:django-ecom_web
+    container_name: ecom_web
+    command: python manage.py runserver 0.0.0.0:8000 
+    depends_on:
+      - db  # Ensure that the Django app container starts after the PostgreSQL container
+
+  db:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: main_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 1234
+
+volumes:
+  db-data:
