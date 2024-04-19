@@ -19,5 +19,9 @@
 .Show Running Containers
     - docker ps
 
+
 # REBUILD IMAGE 
     - docker build -t your_image_name .
+
+# PACKAGE DETAILS
+docker exec ecom_web pip list
